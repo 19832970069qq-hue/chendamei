@@ -1,258 +1,766 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/fromann/CDN@main/img/logo.ico">
-  <title>是陈大美女的&#10084;&#65039;</title>
-  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
-  <style type="text/css">
-    html, body {
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      background: #000;
-    }
-    canvas {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-    .namebox {
-      color: #fff;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .namebox h1 {
-      margin: 0 auto;
-    }
-  </style>
-</head>
-<body>
-<canvas id="pinkboard"></canvas>
-<script>
-  var settings = {
-    particles: {
-      length: 500,
-      duration: 2,
-      velocity: 100,
-      effect: -0.75,
-      size: 24, // 修改为原来的四分之三
-    },
-  };
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>2026年 跨年快乐</title>
 
-  (function() {
-    var b = 0;
-    var c = ["ms", "moz", "webkit", "o"];
-    for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
-      window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
-      window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"];
-    }
-    if (!window.requestAnimationFrame) {
-      window.requestAnimationFrame = function(h, e) {
-        var d = new Date().getTime();
-        var f = Math.max(0, 16 - (d - b));
-        var g = window.setTimeout(function() { h(d + f); }, f);
-        b = d + f;
-        return g;
-      };
-    }
-    if (!window.cancelAnimationFrame) {
-      window.cancelAnimationFrame = function(d) { clearTimeout(d); };
-    }
-  })();
-
-  var Point = function(x, y) {
-    this.x = (typeof x !== 'undefined') ? x : 0;
-    this.y = (typeof y !== 'undefined') ? y : 0;
-  };
-
-  Point.prototype.clone = function() {
-    return new Point(this.x, this.y);
-  };
-
-  Point.prototype.length = function(length) {
-    if (typeof length == 'undefined') {
-      return Math.sqrt(this.x * this.x + this.y * this.y);
-    }
-    this.normalize();
-    this.x *= length;
-    this.y *= length;
-    return this;
-  };
-
-  Point.prototype.normalize = function() {
-    var length = this.length();
-    this.x /= length;
-    this.y /= length;
-    return this;
-  };
-
-  var Particle = function() {
-    this.position = new Point();
-    this.velocity = new Point();
-    this.acceleration = new Point();
-    this.age = 0;
-  };
-
-  Particle.prototype.initialize = function(x, y, dx, dy) {
-    this.position.x = x;
-    this.position.y = y;
-    this.velocity.x = dx;
-    this.velocity.y = dy;
-    this.acceleration.x = dx * settings.particles.effect;
-    this.acceleration.y = dy * settings.particles.effect;
-    this.age = 0;
-  };
-
-  Particle.prototype.update = function(deltaTime) {
-    this.position.x += this.velocity.x * deltaTime;
-    this.position.y += this.velocity.y * deltaTime;
-    this.velocity.x += this.acceleration.x * deltaTime;
-    this.velocity.y += this.acceleration.y * deltaTime;
-    this.age += deltaTime;
-  };
-
-  Particle.prototype.draw = function(context, image) {
-    function ease(t) {
-      return (--t) * t * t + 1;
-    }
-    var size = image.width * ease(this.age / settings.particles.duration);
-    context.globalAlpha = 1 - this.age / settings.particles.duration;
-    context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
-  };
-
-  var ParticlePool = function(length) {
-    this.particles = new Array(length);
-    for (var i = 0; i < this.particles.length; i++) {
-      this.particles[i] = new Particle();
-    }
-    this.firstActive = 0;
-    this.firstFree = 0;
-    this.duration = settings.particles.duration;
-  };
-
-  ParticlePool.prototype.add = function(x, y, dx, dy) {
-    this.particles[this.firstFree].initialize(x, y, dx, dy);
-    this.firstFree++;
-    if (this.firstFree == this.particles.length) this.firstFree = 0;
-    if (this.firstActive == this.firstFree) this.firstActive++;
-    if (this.firstActive == this.particles.length) this.firstActive = 0;
-  };
-
-  ParticlePool.prototype.update = function(deltaTime) {
-    var i;
-    if (this.firstActive < this.firstFree) {
-      for (i = this.firstActive; i < this.firstFree; i++) {
-        this.particles[i].update(deltaTime);
+    <style>
+      html,
+      body {
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
       }
-    }
-    if (this.firstFree < this.firstActive) {
-      for (i = this.firstActive; i < this.particles.length; i++) {
-        this.particles[i].update(deltaTime);
+      #year2026 {
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 150px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #f0932b, #eb4d4b, #6c5ce7, #a29bfe);
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        z-index: 10001;
+        font-family: Arial, sans-serif;
+        opacity: 1;
+        text-align: center;
+        animation: gradientShift 3s linear infinite;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
       }
-      for (i = 0; i < this.firstFree; i++) {
-        this.particles[i].update(deltaTime);
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
-    }
-    while (this.particles[this.firstActive].age >= this.duration && this.firstActive != this.firstFree) {
-      this.firstActive++;
-      if (this.firstActive == this.particles.length) this.firstActive = 0;
-    }
-  };
-
-  ParticlePool.prototype.draw = function(context, image) {
-    if (this.firstActive < this.firstFree) {
-      for (var i = this.firstActive; i < this.firstFree; i++) {
-        this.particles[i].draw(context, image);
+      #greetings {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 60px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        z-index: 10001;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        line-height: 1.5;
+        animation: gradientShift 4s linear infinite;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
       }
-    }
-    if (this.firstFree < this.firstActive) {
-      for (var i = this.firstActive; i < this.particles.length; i++) {
-        this.particles[i].draw(context, image);
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -40%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
       }
-      for (var i = 0; i < this.firstFree; i++) {
-        this.particles[i].draw(context, image);
+      #blessings {
+        position: fixed;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        background: linear-gradient(90deg, #a8edea, #fed6e3, #d299c2, #fef9d7, #89f7fe, #66a6ff);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        z-index: 10001;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        line-height: 1.8;
+        animation: gradientShift 5s linear infinite;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
       }
-    }
-  };
+    </style>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      style="position: absolute; width: 100%; height: 100%; z-index: 8888"
+    ></canvas>
+    <canvas
+      style="position: absolute; width: 100%; height: 100%; z-index: 9999"
+      class="canvas"
+    ></canvas>
+    <div id="year2026">2026</div>
+    <div id="greetings">跨年快乐</div>
+    <div id="blessings">新年新气象<br>万事如意<br>心想事成</div>
+    <div class="overlay">
+      <div class="tabs">
+        <div class="tabs-labels">
+          <span class="tabs-label">Commands</span
+          ><span class="tabs-label">Info</span
+          ><span class="tabs-label">Share</span>
+        </div>
 
-  (function(canvas) {
-    var context = canvas.getContext('2d'),
-        particles = new ParticlePool(settings.particles.length),
-        particleRate = settings.particles.length / settings.particles.duration,
-        time;
-
-    function pointOnHeart(t) {
-      return new Point(
-        (160 * Math.pow(Math.sin(t), 3)) * (3 / 4), // 调整为 3/4
-        (130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25) * (3 / 4) // 调整为 3/4
-      );
-    }
-
-    var image = (function() {
-      var canvas = document.createElement('canvas'),
-          context = canvas.getContext('2d');
-      canvas.width = settings.particles.size;
-      canvas.height = settings.particles.size;
-
-      function to(t) {
-        var point = pointOnHeart(t);
-        point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350 * (3 / 4); // 调整为 3/4
-        point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350 * (3 / 4); // 调整为 3/4
-        return point;
+        <div class="tabs-panels">
+          <ul class="tabs-panel commands"></ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      function initVars() {
+        pi = Math.PI;
+        ctx = canvas.getContext("2d");
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        cx = canvas.width / 2;
+        cy = canvas.height / 2;
+        playerZ = -25;
+        playerX =
+          playerY =
+          playerVX =
+          playerVY =
+          playerVZ =
+          pitch =
+          yaw =
+          pitchV =
+          yawV =
+            0;
+        scale = 600;
+        seedTimer = 0;
+        (seedInterval = 2), (seedLife = 20); // 更频繁生成，确保持续不断
+        gravity = 0.02;
+        minSeeds = 5; // 最小种子数量，确保始终有烟花
+        seeds = new Array();
+        sparkPics = new Array();
+        s = "https://cantelope.org/NYE/";
+        for (i = 1; i <= 10; ++i) {
+          sparkPic = new Image();
+          sparkPic.src = s + "spark" + i + ".png";
+          sparkPics.push(sparkPic);
+        }
+        sparks = new Array();
+        pow1 = new Audio(s + "pow1.ogg");
+        pow2 = new Audio(s + "pow2.ogg");
+        pow3 = new Audio(s + "pow3.ogg");
+        pow4 = new Audio(s + "pow4.ogg");
+        frames = 0;
       }
 
-      context.beginPath();
-      var t = -Math.PI;
-      var point = to(t);
-      context.moveTo(point.x, point.y);
-      while (t < Math.PI) {
-        t += 0.01;
-        point = to(t);
-        context.lineTo(point.x, point.y);
+      function rasterizePoint(x, y, z) {
+        var p, d;
+        x -= playerX;
+        y -= playerY;
+        z -= playerZ;
+        p = Math.atan2(x, z);
+        d = Math.sqrt(x * x + z * z);
+        x = Math.sin(p - yaw) * d;
+        z = Math.cos(p - yaw) * d;
+        p = Math.atan2(y, z);
+        d = Math.sqrt(y * y + z * z);
+        y = Math.sin(p - pitch) * d;
+        z = Math.cos(p - pitch) * d;
+        var rx1 = -1000,
+          ry1 = 1,
+          rx2 = 1000,
+          ry2 = 1,
+          rx3 = 0,
+          ry3 = 0,
+          rx4 = x,
+          ry4 = z,
+          uc = (ry4 - ry3) * (rx2 - rx1) - (rx4 - rx3) * (ry2 - ry1);
+        if (!uc) return { x: 0, y: 0, d: -1 };
+        var ua = ((rx4 - rx3) * (ry1 - ry3) - (ry4 - ry3) * (rx1 - rx3)) / uc;
+        var ub = ((rx2 - rx1) * (ry1 - ry3) - (ry2 - ry1) * (rx1 - rx3)) / uc;
+        if (!z) z = 0.000000001;
+        if (ua > 0 && ua < 1 && ub > 0 && ub < 1) {
+          return {
+            x: cx + (rx1 + ua * (rx2 - rx1)) * scale,
+            y: cy + (y / z) * scale,
+            d: Math.sqrt(x * x + y * y + z * z),
+          };
+        } else {
+          return {
+            x: cx + (rx1 + ua * (rx2 - rx1)) * scale,
+            y: cy + (y / z) * scale,
+            d: -1,
+          };
+        }
       }
-      context.closePath();
-      context.fillStyle = '#ff30c5';
-      context.fill();
-      var image = new Image();
-      image.src = canvas.toDataURL();
-      return image;
-    })();
 
-    function render() {
-      requestAnimationFrame(render);
-      var newTime = new Date().getTime() / 1000,
-          deltaTime = newTime - (time || newTime);
-      time = newTime;
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      var amount = particleRate * deltaTime;
-      for (var i = 0; i < amount; i++) {
-        var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
-        var dir = pos.clone().length(settings.particles.velocity);
-        particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
+      function spawnSeed() {
+        seed = new Object();
+        seed.x = -50 + Math.random() * 100;
+        seed.y = 25;
+        seed.z = -50 + Math.random() * 100;
+        seed.vx = 0.1 - Math.random() * 0.2;
+        seed.vy = -1.5; //*(1+Math.random()/2);
+        seed.vz = 0.1 - Math.random() * 0.2;
+        seed.born = frames;
+        seeds.push(seed);
       }
-      particles.update(deltaTime);
-      particles.draw(context, image);
-    }
 
-    function onResize() {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-    }
-    window.onresize = onResize;
-    setTimeout(function() {
-      onResize();
-      render();
-    }, 10);
-  })(document.getElementById('pinkboard'));
-</script>
-<div class="namebox">
-  <h1>陈大美女&#10084;&#65039;</h1>
-</div>
-</body>
+      function splode(x, y, z) {
+        t = 5 + parseInt(Math.random() * 150);
+        sparkV = 1 + Math.random() * 2.5;
+        type = parseInt(Math.random() * 3);
+        switch (type) {
+          case 0:
+            pic1 = parseInt(Math.random() * 10);
+            break;
+          case 1:
+            pic1 = parseInt(Math.random() * 10);
+            do {
+              pic2 = parseInt(Math.random() * 10);
+            } while (pic2 == pic1);
+            break;
+          case 2:
+            pic1 = parseInt(Math.random() * 10);
+            do {
+              pic2 = parseInt(Math.random() * 10);
+            } while (pic2 == pic1);
+            do {
+              pic3 = parseInt(Math.random() * 10);
+            } while (pic3 == pic1 || pic3 == pic2);
+            break;
+        }
+        for (m = 1; m < t; ++m) {
+          spark = new Object();
+          spark.x = x;
+          spark.y = y;
+          spark.z = z;
+          p1 = pi * 2 * Math.random();
+          p2 = pi * Math.random();
+          v = sparkV * (1 + Math.random() / 6);
+          spark.vx = Math.sin(p1) * Math.sin(p2) * v;
+          spark.vz = Math.cos(p1) * Math.sin(p2) * v;
+          spark.vy = Math.cos(p2) * v;
+          switch (type) {
+            case 0:
+              spark.img = sparkPics[pic1];
+              break;
+            case 1:
+              spark.img = sparkPics[parseInt(Math.random() * 2) ? pic1 : pic2];
+              break;
+            case 2:
+              switch (parseInt(Math.random() * 3)) {
+                case 0:
+                  spark.img = sparkPics[pic1];
+                  break;
+                case 1:
+                  spark.img = sparkPics[pic2];
+                  break;
+                case 2:
+                  spark.img = sparkPics[pic3];
+                  break;
+              }
+              break;
+          }
+          spark.radius = 25 + Math.random() * 50;
+          spark.alpha = 1;
+          spark.trail = new Array();
+          sparks.push(spark);
+        }
+        switch (parseInt(Math.random() * 4)) {
+          case 0:
+            pow = new Audio(s + "pow1.ogg");
+            break;
+          case 1:
+            pow = new Audio(s + "pow2.ogg");
+            break;
+          case 2:
+            pow = new Audio(s + "pow3.ogg");
+            break;
+          case 3:
+            pow = new Audio(s + "pow4.ogg");
+            break;
+        }
+        d = Math.sqrt(
+          (x - playerX) * (x - playerX) +
+            (y - playerY) * (y - playerY) +
+            (z - playerZ) * (z - playerZ)
+        );
+        pow.volume = 1.5 / (1 + d / 10);
+        pow.play();
+      }
+
+      function doLogic() {
+        // 确保烟花持续生成，永不停止 - 强制持续生成机制
+        if (seedTimer < frames) {
+          seedTimer = frames + seedInterval * (1 + Math.random() * 3); // 更频繁生成
+          spawnSeed();
+        }
+        // 强制确保始终有足够的种子 - 多重保护机制
+        if (seeds.length === 0) {
+          // 如果完全没有种子，立即生成多个
+          for (var k = 0; k < minSeeds; k++) {
+            spawnSeed();
+          }
+        } else if (seeds.length < minSeeds) {
+          // 如果种子太少，补充到最小数量
+          while (seeds.length < minSeeds) {
+            spawnSeed();
+          }
+        }
+        // 额外保护：如果火花和种子都很少，强制生成
+        if (seeds.length + sparks.length < 20) {
+          for (var k = 0; k < 3; k++) {
+            spawnSeed();
+          }
+        }
+        for (i = 0; i < seeds.length; ++i) {
+          seeds[i].vy += gravity;
+          seeds[i].x += seeds[i].vx;
+          seeds[i].y += seeds[i].vy;
+          seeds[i].z += seeds[i].vz;
+          if (frames - seeds[i].born > seedLife) {
+            splode(seeds[i].x, seeds[i].y, seeds[i].z);
+            seeds.splice(i, 1);
+          }
+        }
+        for (i = 0; i < sparks.length; ++i) {
+          if (sparks[i].alpha > 0 && sparks[i].radius > 5) {
+            sparks[i].alpha -= 0.01;
+            sparks[i].radius /= 1.02;
+            sparks[i].vy += gravity;
+            point = new Object();
+            point.x = sparks[i].x;
+            point.y = sparks[i].y;
+            point.z = sparks[i].z;
+            if (sparks[i].trail.length) {
+              x = sparks[i].trail[sparks[i].trail.length - 1].x;
+              y = sparks[i].trail[sparks[i].trail.length - 1].y;
+              z = sparks[i].trail[sparks[i].trail.length - 1].z;
+              d =
+                (point.x - x) * (point.x - x) +
+                (point.y - y) * (point.y - y) +
+                (point.z - z) * (point.z - z);
+              if (d > 9) {
+                sparks[i].trail.push(point);
+              }
+            } else {
+              sparks[i].trail.push(point);
+            }
+            if (sparks[i].trail.length > 5) sparks[i].trail.splice(0, 1);
+            sparks[i].x += sparks[i].vx;
+            sparks[i].y += sparks[i].vy;
+            sparks[i].z += sparks[i].vz;
+            sparks[i].vx /= 1.075;
+            sparks[i].vy /= 1.075;
+            sparks[i].vz /= 1.075;
+          } else {
+            sparks.splice(i, 1);
+          }
+        }
+        p = Math.atan2(playerX, playerZ);
+        d = Math.sqrt(playerX * playerX + playerZ * playerZ);
+        d += Math.sin(frames / 80) / 1.25;
+        t = Math.sin(frames / 200) / 40;
+        playerX = Math.sin(p + t) * d;
+        playerZ = Math.cos(p + t) * d;
+        yaw = pi + p + t;
+      }
+
+      function rgb(col) {
+        var r = parseInt((0.5 + Math.sin(col) * 0.5) * 16);
+        var g = parseInt((0.5 + Math.cos(col) * 0.5) * 16);
+        var b = parseInt((0.5 - Math.sin(col) * 0.5) * 16);
+        return "#" + r.toString(16) + g.toString(16) + b.toString(16);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, cx * 2, cy * 2);
+
+        ctx.fillStyle = "#ff8";
+        for (i = -100; i < 100; i += 3) {
+          for (j = -100; j < 100; j += 4) {
+            x = i;
+            z = j;
+            y = 25;
+            point = rasterizePoint(x, y, z);
+            if (point.d != -1) {
+              size = 250 / (1 + point.d);
+              d = Math.sqrt(x * x + z * z);
+              a = 0.75 - Math.pow(d / 100, 6) * 0.75;
+              if (a > 0) {
+                ctx.globalAlpha = a;
+                ctx.fillRect(
+                  point.x - size / 2,
+                  point.y - size / 2,
+                  size,
+                  size
+                );
+              }
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+        for (i = 0; i < seeds.length; ++i) {
+          point = rasterizePoint(seeds[i].x, seeds[i].y, seeds[i].z);
+          if (point.d != -1) {
+            size = 200 / (1 + point.d);
+            ctx.fillRect(point.x - size / 2, point.y - size / 2, size, size);
+          }
+        }
+        point1 = new Object();
+        for (i = 0; i < sparks.length; ++i) {
+          point = rasterizePoint(sparks[i].x, sparks[i].y, sparks[i].z);
+          if (point.d != -1) {
+            size = (sparks[i].radius * 200) / (1 + point.d);
+            if (sparks[i].alpha < 0) sparks[i].alpha = 0;
+            if (sparks[i].trail.length) {
+              point1.x = point.x;
+              point1.y = point.y;
+              switch (sparks[i].img) {
+                case sparkPics[0]:
+                  ctx.strokeStyle = "#f84";
+                  break;
+                case sparkPics[1]:
+                  ctx.strokeStyle = "#84f";
+                  break;
+                case sparkPics[2]:
+                  ctx.strokeStyle = "#8ff";
+                  break;
+                case sparkPics[3]:
+                  ctx.strokeStyle = "#fff";
+                  break;
+                case sparkPics[4]:
+                  ctx.strokeStyle = "#4f8";
+                  break;
+                case sparkPics[5]:
+                  ctx.strokeStyle = "#f44";
+                  break;
+                case sparkPics[6]:
+                  ctx.strokeStyle = "#f84";
+                  break;
+                case sparkPics[7]:
+                  ctx.strokeStyle = "#84f";
+                  break;
+                case sparkPics[8]:
+                  ctx.strokeStyle = "#fff";
+                  break;
+                case sparkPics[9]:
+                  ctx.strokeStyle = "#44f";
+                  break;
+              }
+              for (j = sparks[i].trail.length - 1; j >= 0; --j) {
+                point2 = rasterizePoint(
+                  sparks[i].trail[j].x,
+                  sparks[i].trail[j].y,
+                  sparks[i].trail[j].z
+                );
+                if (point2.d != -1) {
+                  ctx.globalAlpha =
+                    ((j / sparks[i].trail.length) * sparks[i].alpha) / 2;
+                  ctx.beginPath();
+                  ctx.moveTo(point1.x, point1.y);
+                  ctx.lineWidth =
+                    1 +
+                    (sparks[i].radius * 10) /
+                      (sparks[i].trail.length - j) /
+                      (1 + point2.d);
+                  ctx.lineTo(point2.x, point2.y);
+                  ctx.stroke();
+                  point1.x = point2.x;
+                  point1.y = point2.y;
+                }
+              }
+            }
+            ctx.globalAlpha = sparks[i].alpha;
+            ctx.drawImage(
+              sparks[i].img,
+              point.x - size / 2,
+              point.y - size / 2,
+              size,
+              size
+            );
+          }
+        }
+      }
+
+      function frame() {
+        // 无限循环，确保动画永不停止
+        try {
+          frames++;
+          draw();
+          doLogic();
+          // 使用 requestAnimationFrame 持续运行，永不停止
+          requestAnimationFrame(frame);
+        } catch (error) {
+          // 即使出错也继续运行，确保动画不停止
+          console.error("Animation error (continuing):", error);
+          requestAnimationFrame(frame);
+        }
+      }
+
+      window.addEventListener("resize", () => {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        cx = canvas.width / 2;
+        cy = canvas.height / 2;
+      });
+
+      // 初始化并启动无限循环动画
+      initVars();
+      
+      // 确保动画立即开始，并持续运行
+      // 使用 setTimeout 作为备用，确保即使 requestAnimationFrame 失败也能继续
+      var animationRunning = true;
+      function ensureAnimation() {
+        if (animationRunning) {
+          frame();
+        }
+      }
+      
+      // 启动主动画循环
+      frame();
+      
+      // 备用保护机制：每10秒检查一次，确保动画仍在运行
+      setInterval(function() {
+        if (seeds.length === 0 && sparks.length === 0) {
+          // 如果所有动画都停止了，强制重新生成
+          for (var k = 0; k < minSeeds * 2; k++) {
+            spawnSeed();
+          }
+        }
+      }, 10000);
+    </script>
+    <script src="index.js"></script>
+    <div id="page_end_html">
+      <!--放大图片-->
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://blog-static.cnblogs.com/files/zouwangblog/zoom.css"
+      />
+      <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+      <script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/transition.js"></script>
+      <script src="https://blog-static.cnblogs.com/files/zouwangblog/zoom.js"></script>
+      <script type="text/javascript">
+        $("#cnblogs_post_body img").attr("data-action", "zoom");
+      </script>
+      <!--放大图片end-->
+    
+      <!--鼠标特效-->
+      <script src="https://blog-static.cnblogs.com/files/zouwangblog/mouse-click.js"></script>
+      <canvas
+        width="1777"
+        height="841"
+        style="
+          position: fixed;
+          left: 0px;
+          top: 0px;
+          z-index: 2147483647;
+          pointer-events: none;
+        "
+      ></canvas>
+      <!--鼠标特效 end-->
+      <!-- require APlayer -->
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+      <!-- require MetingJS -->
+      <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    
+      <!-- // 随机线条 -->
+      <script>
+        !(function () {
+          function n(n, e, t) {
+            return n.getAttribute(e) || t;
+          }
+          function e(n) {
+            return document.getElementsByTagName(n);
+          }
+          function t() {
+            var t = e("script"),
+              o = t.length,
+              i = t[o - 1];
+            return {
+              l: o,
+              z: n(i, "zIndex", -1),
+              o: n(i, "opacity", 0.6),
+              c: n(i, "color", "148,0,211"),
+              n: n(i, "count", 99),
+            };
+          }
+          function o() {
+            (a = m.width =
+              window.innerWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth),
+              (c = m.height =
+                window.innerHeight ||
+                document.documentElement.clientHeight ||
+                document.body.clientHeight);
+          }
+          function i() {
+            r.clearRect(0, 0, a, c);
+            var n, e, t, o, m, l;
+            s.forEach(function (i, x) {
+              for (
+                i.x += i.xa,
+                  i.y += i.ya,
+                  i.xa *= i.x > a || i.x < 0 ? -1 : 1,
+                  i.ya *= i.y > c || i.y < 0 ? -1 : 1,
+                  r.fillRect(i.x - 0.5, i.y - 0.5, 1, 1),
+                  e = x + 1;
+                e < u.length;
+                e++
+              )
+                (n = u[e]),
+                  null !== n.x &&
+                    null !== n.y &&
+                    ((o = i.x - n.x),
+                    (m = i.y - n.y),
+                    (l = o * o + m * m),
+                    l < n.max &&
+                      (n === y &&
+                        l >= n.max / 2 &&
+                        ((i.x -= 0.03 * o), (i.y -= 0.03 * m)),
+                      (t = (n.max - l) / n.max),
+                      r.beginPath(),
+                      (r.lineWidth = t / 2),
+                      (r.strokeStyle = "rgba(" + d.c + "," + (t + 0.2) + ")"),
+                      r.moveTo(i.x, i.y),
+                      r.lineTo(n.x, n.y),
+                      r.stroke()));
+            }),
+              x(i);
+          }
+          var a,
+            c,
+            u,
+            m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x =
+              window.requestAnimationFrame ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame ||
+              window.oRequestAnimationFrame ||
+              window.msRequestAnimationFrame ||
+              function (n) {
+                window.setTimeout(n, 1e3 / 45);
+              },
+            w = Math.random,
+            y = { x: null, y: null, max: 2e4 };
+          (m.id = l),
+            (m.style.cssText =
+              "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o),
+            e("body")[0].appendChild(m),
+            o(),
+            (window.onresize = o),
+            (window.onmousemove = function (n) {
+              (n = n || window.event), (y.x = n.clientX), (y.y = n.clientY);
+            }),
+            (window.onmouseout = function () {
+              (y.x = null), (y.y = null);
+            });
+          for (var s = [], f = 0; d.n > f; f++) {
+            var h = w() * a,
+              g = w() * c,
+              v = 2 * w() - 1,
+              p = 2 * w() - 1;
+            s.push({ x: h, y: g, xa: v, ya: p, max: 6e3 });
+          }
+          (u = s.concat([y])),
+            setTimeout(function () {
+              // 确保随机线条特效持续运行
+              function ensureLinesAnimation() {
+                try {
+                  i();
+                } catch (e) {
+                  console.error("Lines animation error (continuing):", e);
+                }
+              }
+              ensureLinesAnimation();
+            }, 100);
+        })();
+      </script>
+    
+      <!-- 雪花特效 -->
+      <script type="text/javascript">
+        (function ($) {
+          $.fn.snow = function (options) {
+            var $flake = $('<div id="snowbox" />')
+                .css({ position: "absolute", "z-index": "10002", top: "-50px" })
+                .html("❄"),
+              documentHeight = $(document).height(),
+              documentWidth = $(document).width(),
+              defaults = {
+                minSize: 10,
+                maxSize: 20,
+                newOn: 1000,
+                flakeColor:
+                  "#00CED1" /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */,
+              },
+              options = $.extend({}, defaults, options);
+            // 确保雪花特效持续运行，永不停止
+            var interval = setInterval(function () {
+              try {
+                var startPositionLeft = Math.random() * documentWidth - 100,
+                  startOpacity = 0.5 + Math.random(),
+                  sizeFlake = options.minSize + Math.random() * options.maxSize,
+                  endPositionTop = documentHeight - 200,
+                  endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+                  durationFall = documentHeight * 10 + Math.random() * 5000;
+                $flake
+                  .clone()
+                  .appendTo("body")
+                  .css({
+                    left: startPositionLeft,
+                    opacity: startOpacity,
+                    "font-size": sizeFlake,
+                    color: options.flakeColor,
+                  })
+                  .animate(
+                    {
+                      top: endPositionTop,
+                      left: endPositionLeft,
+                      opacity: 0.2,
+                    },
+                    durationFall,
+                    "linear",
+                    function () {
+                      $(this).remove();
+                    }
+                  );
+              } catch (e) {
+                // 即使出错也继续运行
+                console.error("Snow effect error (continuing):", e);
+              }
+            }, options.newOn);
+            
+            // 确保 interval 不会被清除
+            window.snowInterval = interval;
+          };
+        })(jQuery);
+        $(function () {
+          $.fn.snow({
+            minSize: 5 /* 定义雪花最小尺寸 */,
+            maxSize: 80 /* 定义雪花最大尺寸 */,
+            newOn: 200 /* 定义密集程度，数字越小越密集 */,
+          });
+        });
+      </script>
+  </body>
 </html>
